@@ -1,7 +1,9 @@
 const express = require("express");
+const jwt = require("jsonwebtoken")
 const adminAuthMiddleware = require("../Middlewares/admin")
 const router = express.Router();
-const { Admin , Course } = require("../db/index")
+const { Admin , Course, User } = require("../db/index");
+const { jwtSecret } = require("../config");
 
 router.post("/signup",(req,res)=>{
 
@@ -53,4 +55,23 @@ router.get("/courses",adminAuthMiddleware,async (req,res)=>{
     })
 })
 
+router.post("/signin",(req,res)=>{
+
+    const username = req.body.username;
+    const password = req.body.password;
+    
+    const admin = Admin.findOne({
+        username,
+        password
+    })
+
+    if(admin){
+        const token = jwt.sign({username:username},jwtSecret)
+        res.status(200).json({
+            token,
+        })
+    } else {
+        res.send("Admin Doesn't Exist")
+    }
+})
 module.exports = router;

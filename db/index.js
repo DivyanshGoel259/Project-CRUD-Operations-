@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://mahekb099:mahekb099@hacklockfirstdatabase.7p10krz.mongodb.net/SigninApplication")
+mongoose.connect("mongodb+srv://mahekb099:mahekb099@hacklockfirstdatabase.7p10krz.mongodb.net/SigninApplication2")
 const AdminSchema = mongoose.Schema({
     username : String,
     password : String 
